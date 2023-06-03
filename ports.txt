@@ -1,0 +1,9 @@
+AK, Anchorage Whittier
+AK, Dutch Harbor Unalaska Island
+AK, Haines
+BR, Brazil, Alter do Chao
+BR, Angra Dos Reis
+BR, Belem
+FJ, Dravuni Island
+FJ, Lautoka
+FJ, Suca Fiji
