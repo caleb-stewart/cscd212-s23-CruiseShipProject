@@ -11,6 +11,9 @@ public class DepartureCruisePort implements Cloneable{
     //So we are going to apply the prototype pattern to the CruisePorts, mainly so we can keep track of
     //  what ports have been used or not for the destination
 
+    private String countryPort;
+    private String portLocationName;
+
     private File ports = new File("ports.txt");
     private Scanner scnr;
     private Scanner kb = new Scanner(System.in);
@@ -47,7 +50,6 @@ public class DepartureCruisePort implements Cloneable{
            }
 
         System.out.print(countryPorts.get(0) + ", ");
-
         for(int i = 1; i < countryPorts.size(); ++i) {
 
             if(!(countryPorts.get(i - 1).equals(countryPorts.get(i))))
@@ -58,13 +60,17 @@ public class DepartureCruisePort implements Cloneable{
         System.out.println("\nSelect a Country You Would Like to Depart From: ");
         String choice = kb.nextLine();
 
-        if(countryPorts.contains(choice)) {
+        if(countryPorts.contains(choice.toUpperCase())) {
             System.out.println("Success");
-            retrievePortLocations(choice);
+            this.countryPort = choice.toUpperCase();
+            retrievePortLocations(choice.toUpperCase());
+        }
+        else {
+            throw new IndexOutOfBoundsException(choice + " is not a valid option");
         }
     }
 
-    public void retrievePortLocations(final String country) {
+    private void retrievePortLocations(final String country) {
         fileReset();
         int iter = 1;
 
@@ -72,12 +78,22 @@ public class DepartureCruisePort implements Cloneable{
 
             String tempCursor = scnr.nextLine();
 
-
             if(tempCursor.contains(country)) {
                 locationName.add(tempCursor.substring(tempCursor.indexOf(",") + 2));
                 System.out.println(iter + ".) " + tempCursor.substring(tempCursor.indexOf(",") + 2));
                 iter++;
             }
+        }
+
+        System.out.println("Select the port name in " + countryPort);
+        int locationChoice = kb.nextInt();
+
+        if(locationChoice > 0 && locationChoice <= iter) {
+            portLocationName = locationName.get(locationChoice - 1);
+            
+        }
+        else {
+            throw new IndexOutOfBoundsException(locationChoice + " was not an option");
         }
     }
 

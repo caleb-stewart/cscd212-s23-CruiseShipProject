@@ -2,8 +2,8 @@ package CruiseShip;
 
 public class CruiseShipFactory extends AbstractCruiseShipFactory {
 
-    public CruiseShipFactory(final String parentCompany, final String shipName) {
-        super(parentCompany, shipName);
+    public CruiseShipFactory() {
+        super();
     }
 
     @Override
