@@ -5,13 +5,24 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DepartureCruisePort {
+public class DepartureCruisePort implements Cloneable{
+
+    //We need to keep track of what locations have already been used
+    //So we are going to apply the prototype pattern to the CruisePorts, mainly so we can keep track of
+    //  what ports have been used or not for the destination
 
     private File ports = new File("ports.txt");
     private Scanner scnr;
     private Scanner kb = new Scanner(System.in);
     private ArrayList<String> locationName = new ArrayList<>();
 
+
+    @Override
+    public DepartureCruisePort clone() throws CloneNotSupportedException { //Shallow copy because we want to destination port to be removed from all port locations
+        DepartureCruisePort clone = (DepartureCruisePort) super.clone();
+        // TODO: copy mutable state here, so the clone can't change the internals of the original
+        return clone;
+    }
 
     public void fileReset() {
         try {
@@ -70,4 +81,6 @@ public class DepartureCruisePort {
         }
     }
 
-}
+
+    }
+

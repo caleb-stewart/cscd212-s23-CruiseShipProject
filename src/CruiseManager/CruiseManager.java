@@ -1,6 +1,6 @@
 package CruiseManager;
 
-public class CruiseManager {
+public class CruiseManager {//Observer???
 
     public void createCruisePort() {
 
