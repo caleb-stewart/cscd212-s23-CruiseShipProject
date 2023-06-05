@@ -1,13 +1,10 @@
-import CruisePort.DepartureCruisePort;
-import CruiseRoom.InsideCabinRoom;
-import CruiseShip.AbstractCruiseShipFactory;
-import CruiseShip.CruiseShipFactory;
+import CruiseManager.CruiseManager;
+import CruisePort.PortManager;
 import CruiseShip.*;
-import CruiseRoom.*;
 
 public class Main {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
         /*CruiseRoom room = new InsideCabinRoom();
         System.out.println(room.getRoom());
@@ -15,14 +12,22 @@ public class Main {
         System.out.println(room1.getRoom());
         System.out.println(room1.getRoom());*/
 
-        DepartureCruisePort dPort = new DepartureCruisePort();
+        /*CruisePortManager dPort = new CruisePort();
+        System.out.println(dPort.getCountryPort());
+        System.out.println(dPort.getLocationName());*/
 
-        dPort.displayStartingOptions();
+        CruiseManager manager = new CruiseManager();
+        PortManager startingPort = manager.createCruisePort();
+        PortManager endingPort = manager.createCruisePort("AK", "Haines");
 
-        AbstractCruiseShipFactory ShipFac = new CruiseShipFactory();
+        CruiseShip ship = manager.createCruiseShip();
+
+        //CruisePortManager depPort = new CruisePort();
+
+        /*AbstractCruiseShipFactory ShipFac = new CruiseShipFactory();
 
         CruiseShip familyFriendly = ShipFac.createShip("Family Friendly");
-        familyFriendly.displayCruiseType();
+        familyFriendly.displayCruiseType();*/
 
 
     }

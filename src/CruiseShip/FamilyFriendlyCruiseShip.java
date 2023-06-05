@@ -6,6 +6,6 @@ public class FamilyFriendlyCruiseShip extends CruiseShip{
         CruiseType = "Family Friendly";
         drinks = "slushies";
         entertainment = "Balloon animals and face painting";
-
+        lightsOutTime = "10pm";
     }
 }

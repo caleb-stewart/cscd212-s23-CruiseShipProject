@@ -6,6 +6,7 @@ public class AdultsOnlyCruiseShip extends CruiseShip{
         CruiseType = "Adults Only";
         drinks = "cocktails";
         entertainment = "deck party";
+        lightsOutTime = "All nighter";
     }
 
 }

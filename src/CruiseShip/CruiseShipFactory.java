@@ -6,6 +6,24 @@ public class CruiseShipFactory extends AbstractCruiseShipFactory {
         super();
     }
 
+    public CruiseShip chooseTypeOfShip() {
+        System.out.println("What type of ship would you like?");
+        System.out.println("1.) Family Friendly");
+        System.out.println("2.) Adults Only");
+
+        int shipChoice = Integer.parseInt(kb.nextLine());
+
+        if(shipChoice == 1) {
+            return createShip("Family Friendly");
+        }
+        else if (shipChoice == 2) {
+            return createShip("Adults Only");
+        }
+        else {
+            throw new IndexOutOfBoundsException(shipChoice + " was not in the range of options");
+        }
+    }
+
     @Override
     public CruiseShip createShip(final String shipType) {
 
