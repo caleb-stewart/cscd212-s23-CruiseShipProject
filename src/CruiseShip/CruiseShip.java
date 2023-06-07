@@ -15,11 +15,13 @@ public abstract class CruiseShip {
         this.shipName = shipName;
     }
 
-    public void displayCruiseType() {
-        System.out.println("We are on a " + this.CruiseType + " cruise");
-        System.out.println("\t\tWe are drinking " + this.drinks);
-        System.out.println("\t\tOur entertainment is " + this.entertainment);
-        System.out.println("\t\tOur lights out time is " + this.lightsOutTime);
+    public String displayCruiseType() {
+        String displayCruiseShip = "";
+        displayCruiseShip += "We are on a " + this.CruiseType + " cruise\n";
+        displayCruiseShip += "\t\tWe are drinking " + this.drinks + "\n";
+        displayCruiseShip += "\t\tOur entertainment is " + this.entertainment + "\n";
+        displayCruiseShip += "\t\tOur lights out time is " + this.lightsOutTime;
+        return displayCruiseShip;
     }
 
     public String getShipCompany() {

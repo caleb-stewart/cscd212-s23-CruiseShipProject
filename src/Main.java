@@ -26,10 +26,10 @@ public class Main {
         PortManager endingPort = manager.createCruisePort("AK", "Haines");*/
 
         AbstractCruiseBuilder cruise1 = manager.buildCruise("AK", "Haines", "BR", "Belem", "Carnival", "Carnival Magic", "Family Friendly", new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
-        manager.displayCruiseSystemDetails();
+        System.out.println(manager.displayCruiseSystemDetails());
 
         manager.buildCruise();
-        manager.displayCruiseSystemDetails();
+        System.out.println(manager.displayCruiseSystemDetails());
 
 
         //CruisePortManager depPort = new CruisePort();

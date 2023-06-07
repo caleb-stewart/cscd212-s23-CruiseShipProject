@@ -75,7 +75,7 @@ public abstract class PortManager implements Cloneable{
     @Override
     public PortManager clone() throws CloneNotSupportedException { //Shallow copy because we want to destination port to be removed from all port locations
         PortManager clone = (PortManager) super.clone();
-        // TODO: copy mutable state here, so the clone can't change the internals of the original
+
         return clone;
     }
 
@@ -139,8 +139,10 @@ public abstract class PortManager implements Cloneable{
                 if(locationName.get(i).substring(0, locationName.get(i).indexOf(",")).equals(country)) {
                     returnPortLocationName = locationName.get(i + locationChoice);
                     locationName.remove(i + locationChoice);
+                    return returnPortLocationName;
                 }
             }
+
             return returnPortLocationName;
 
         }

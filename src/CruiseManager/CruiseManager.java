@@ -58,24 +58,27 @@ public class CruiseManager {//Observer???
 
     }
 
-    public void displayCruiseSystemDetails() {
+    public String displayCruiseSystemDetails() {
+        String cruiseSystemDetails = "";
 
         for(int i = 0; i < cruiseList.size(); i++) {
-            System.out.println(i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getLocationName()
+            cruiseSystemDetails += i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getLocationName()
                     + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() + ", " +
-                            cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName());
+                            cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName();
 
-            System.out.println("\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName());
-            System.out.print("\tCruise Type: ");
-            cruiseList.get(i).getShip().displayCruiseType();
-            System.out.println("\tRoom: " + cruiseList.get(i).getRoom().getRoom());
-            System.out.println("\tDinner Package: " + cruiseList.get(i).getDinnerPackage().typeOfDinner());
-            System.out.println("\tDrinks Package: " + cruiseList.get(i).getDrinksPackage().drinkBeverage());
-            System.out.println("\tWifi Package: " + cruiseList.get(i).getWifiPackage().wifiStrength());
-            System.out.println("\tNights: " + cruiseList.get(i).getNumDaysSailing());
-            System.out.println("\tDays in destination port: " + cruiseList.get(i).getNumDaysInDestinationPort());
+            cruiseSystemDetails += "\n\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName();
+            cruiseSystemDetails += "\n\tCruise Type: ";
+            cruiseSystemDetails += cruiseList.get(i).getShip().displayCruiseType();
+            cruiseSystemDetails += "\n\tRoom: " + cruiseList.get(i).getRoom().getRoom();
+            cruiseSystemDetails += "\n\tDinner Package: " + cruiseList.get(i).getDinnerPackage().typeOfDinner();
+            cruiseSystemDetails += "\n\tDrinks Package: " + cruiseList.get(i).getDrinksPackage().drinkBeverage();
+            cruiseSystemDetails += "\n\tWifi Package: " + cruiseList.get(i).getWifiPackage().wifiStrength();
+            cruiseSystemDetails += "\n\tNights: " + cruiseList.get(i).getNumDaysSailing();
+            cruiseSystemDetails += "\n\tDays in destination port: " + cruiseList.get(i).getNumDaysInDestinationPort() + "\n";
+
+
         }
-
+        return cruiseSystemDetails;
     }
 
     public AbstractCruiseBuilder buildCruise() throws CloneNotSupportedException {
