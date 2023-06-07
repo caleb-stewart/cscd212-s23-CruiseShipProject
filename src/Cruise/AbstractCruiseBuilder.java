@@ -22,7 +22,7 @@ public abstract class AbstractCruiseBuilder {
         public Date date;
 
         public int numDaysSailing;
-        public int numDaysInDepaturePort;
+        public int numDaysInDestinationPort;
 
 
 
@@ -41,7 +41,7 @@ public abstract class AbstractCruiseBuilder {
 
             this.date = new Date();
             this.numDaysSailing = calculateNumDaysSailing();
-            this.numDaysInDepaturePort = this.ports.size();
+            this.numDaysInDestinationPort = this.ports.size();
 
         }
 
@@ -98,7 +98,7 @@ public abstract class AbstractCruiseBuilder {
             return numDaysSailing;
         }
 
-        public int getNumDaysInDepaturePort() {
-            return numDaysInDepaturePort;
+        public int getNumDaysInDestinationPort() {
+            return numDaysInDestinationPort;
         }
 }

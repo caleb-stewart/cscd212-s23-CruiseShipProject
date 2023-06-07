@@ -25,7 +25,10 @@ public class Main {
         /*PortManager startingPort = manager.createCruisePort();
         PortManager endingPort = manager.createCruisePort("AK", "Haines");*/
 
-        AbstractCruiseBuilder cruise1 = manager.buildCruise("AK", "Haines", "Carnival", "Carnival Magic", "Family Friendly", new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+        AbstractCruiseBuilder cruise1 = manager.buildCruise("AK", "Haines", "BR", "Belem", "Carnival", "Carnival Magic", "Family Friendly", new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+        manager.displayCruiseSystemDetails();
+
+        manager.buildCruise();
         manager.displayCruiseSystemDetails();
 
 

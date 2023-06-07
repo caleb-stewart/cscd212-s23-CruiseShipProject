@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 public abstract class AbstractCruiseShipFactory {
 
-    private final String parentCompany;
-    private final String shipName;
+    protected final String parentCompany;
+    protected final String shipName;
 
     private File ships = new File("ships.txt");
     private Scanner scnr;
-    private Scanner kb = new Scanner(System.in);
+    protected Scanner kb = new Scanner(System.in);
     private ArrayList<String> shipCompanyNames = new ArrayList<>();
     private ArrayList<String> companyShipNames = new ArrayList<>();
 

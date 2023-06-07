@@ -61,8 +61,19 @@ public class CruiseManager {//Observer???
     public void displayCruiseSystemDetails() {
 
         for(int i = 0; i < cruiseList.size(); i++) {
-            System.out.println(i + 1 + ".) " + cruiseList.get(i).getPorts().get(0) + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size()));
-            System.out.println("Ship: " + cruiseList.get(i).getShip();
+            System.out.println(i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getLocationName()
+                    + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() + ", " +
+                            cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName());
+
+            System.out.println("\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName());
+            System.out.print("\tCruise Type: ");
+            cruiseList.get(i).getShip().displayCruiseType();
+            System.out.println("\tRoom: " + cruiseList.get(i).getRoom().getRoom());
+            System.out.println("\tDinner Package: " + cruiseList.get(i).getDinnerPackage().typeOfDinner());
+            System.out.println("\tDrinks Package: " + cruiseList.get(i).getDrinksPackage().drinkBeverage());
+            System.out.println("\tWifi Package: " + cruiseList.get(i).getWifiPackage().wifiStrength());
+            System.out.println("\tNights: " + cruiseList.get(i).getNumDaysSailing());
+            System.out.println("\tDays in destination port: " + cruiseList.get(i).getNumDaysInDestinationPort());
         }
 
     }

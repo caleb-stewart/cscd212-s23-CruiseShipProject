@@ -124,19 +124,23 @@ public abstract class PortManager implements Cloneable{
 
         for(int i = 0; i < locationName.size(); ++i) {
             if(locationName.get(i).substring(0, locationName.get(i).indexOf(",")).equals(country)) {
-                System.out.println(i + 1 + ".) " + locationName.get(i).substring(locationName.get(0).indexOf(",") + 2));
+                System.out.println(iter + 1 + ".) " + locationName.get(i).substring(locationName.get(0).indexOf(",") + 2));
                 iter++;
             }
-
         }
 
-
         System.out.println("Select the port name in " + country);
-        int locationChoice = Integer.parseInt(kb.nextLine());
+        int locationChoice = Integer.parseInt(kb.nextLine()) - 1;
 
-        if(locationChoice > 0 && locationChoice <= iter) {
-            String returnPortLocationName = locationName.get(locationChoice - 1);
-            locationName.remove(locationChoice - 1);
+        if(locationChoice >= 0 && locationChoice <= iter) {
+            String returnPortLocationName = "";
+
+            for(int i = 0; i < locationName.size(); ++i) {
+                if(locationName.get(i).substring(0, locationName.get(i).indexOf(",")).equals(country)) {
+                    returnPortLocationName = locationName.get(i + locationChoice);
+                    locationName.remove(i + locationChoice);
+                }
+            }
             return returnPortLocationName;
 
         }

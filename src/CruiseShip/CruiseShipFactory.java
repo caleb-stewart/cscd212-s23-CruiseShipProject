@@ -7,6 +7,7 @@ public class CruiseShipFactory extends AbstractCruiseShipFactory {
     }
 
     public CruiseShipFactory(final String companyName, final String shipName) {
+
         super(companyName, shipName);
     }
 
@@ -32,11 +33,11 @@ public class CruiseShipFactory extends AbstractCruiseShipFactory {
     public CruiseShip createShip(final String shipType) {
 
         if(shipType.equals("Family Friendly")) {
-            return new FamilyFriendlyCruiseShip();
+            return new FamilyFriendlyCruiseShip(parentCompany, shipName);
         }
 
         else if(shipType.equals("Adults Only")) {
-            return new AdultsOnlyCruiseShip();
+            return new AdultsOnlyCruiseShip(parentCompany, shipName);
         }
 
         else {
