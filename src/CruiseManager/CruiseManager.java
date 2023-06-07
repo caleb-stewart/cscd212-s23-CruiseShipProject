@@ -10,6 +10,7 @@ import CruiseShip.*;
 import CruiseRoom.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CruiseManager {//Observer???
 
@@ -28,7 +29,8 @@ public class CruiseManager {//Observer???
 
         cruisePort.setLocationName(cruisePortCreate.getLocationNameList());
 
-        return new CruisePort(cruisePortCreate.getCountryPort(), cruisePortCreate.getLocationName());
+        return new CruisePort(cruisePortCreate.getCountryPort().strip(),
+                cruisePortCreate.getLocationName().substring(cruisePortCreate.getLocationName().indexOf(",")+ 1).strip());
 
     }
 
@@ -62,10 +64,19 @@ public class CruiseManager {//Observer???
         String cruiseSystemDetails = "";
 
         for(int i = 0; i < cruiseList.size(); i++) {
-            cruiseSystemDetails += i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getLocationName()
+            cruiseSystemDetails += i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(0).getLocationName()
                     + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() + ", " +
                             cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName();
 
+            if(cruiseList.get(i).getPorts().size() > 2) {
+                cruiseSystemDetails += "\n\tStops along the way: ";
+                int x = 1;
+                while(x < cruiseList.get(i).getPorts().size() - 1) {
+                    cruiseSystemDetails += cruiseList.get(i).getPorts().get(x).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(x).getLocationName() + " -> ";
+                    ++x;
+                }
+
+            }
             cruiseSystemDetails += "\n\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName();
             cruiseSystemDetails += "\n\tCruise Type: ";
             cruiseSystemDetails += cruiseList.get(i).getShip().displayCruiseType();
@@ -136,5 +147,26 @@ public class CruiseManager {//Observer???
         /*for(int i = 0; i < cruiseList.size(); i++) {
             System.out.println(i + ".) " + cruiseList.get(i).getStartingPort().getLocationName() + " to " + cruiseList.get(i).getEndingPort().getLocationName());
         }*/
+    }
+
+    public void addPortToCruise () throws CloneNotSupportedException {
+        int cruiseChoice = chooseCruiseFromList();
+
+        cruiseList.get(cruiseChoice).addPort(createCruisePort());
+    }
+
+    public int chooseCruiseFromList() {
+
+        for(int i = 0; i < cruiseList.size(); i++) {
+            System.out.println(i + 1 + ".) " + cruiseList.get(i).getPorts().get(0).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(0).getLocationName()
+                    + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() + ", " +
+                    cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName());
+        }
+
+        Scanner kb = new Scanner(System.in);
+        System.out.println("Please choose a cruise from the list above: ");
+        int cruiseChoice = Integer.parseInt(kb.nextLine());
+
+        return cruiseChoice - 1;
     }
 }

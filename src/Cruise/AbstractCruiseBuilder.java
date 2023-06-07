@@ -24,8 +24,6 @@ public abstract class AbstractCruiseBuilder {
         public int numDaysSailing;
         public int numDaysInDestinationPort;
 
-
-
         public AbstractCruiseBuilder(final PortManager startingPort, final PortManager endingPort, final CruiseShip ship) {
             this.ports = new ArrayList<PortManager>();
             this.ports.add(startingPort);
@@ -50,7 +48,7 @@ public abstract class AbstractCruiseBuilder {
         }
 
         public void addPort(final PortManager port) {
-            this.ports.add(port);
+            this.ports.add(ports.size() - 1, port);
         }
 
         public abstract void setDinnerPackageAccommodation();
