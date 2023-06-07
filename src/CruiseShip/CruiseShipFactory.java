@@ -6,6 +6,10 @@ public class CruiseShipFactory extends AbstractCruiseShipFactory {
         super();
     }
 
+    public CruiseShipFactory(final String companyName, final String shipName) {
+        super(companyName, shipName);
+    }
+
     public CruiseShip chooseTypeOfShip() {
         System.out.println("What type of ship would you like?");
         System.out.println("1.) Family Friendly");

@@ -2,7 +2,14 @@ package CruisePackage.DrinksPackage;
 
 public class UnlimitedAlcohol implements DrinksPackage{
 
-    public String drinkBeverage() {
-        return "you are drinking a margarita";
+    private String drink;
+
+    public UnlimitedAlcohol(){
+        this.drink = "Margarita";
     }
+
+    public String drinkBeverage() {
+        return this.drink;
+    }
+
 }

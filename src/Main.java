@@ -1,5 +1,10 @@
+import Cruise.AbstractCruiseBuilder;
 import CruiseManager.CruiseManager;
+import CruisePackage.DinnerPackage.FreeDinner;
+import CruisePackage.DrinksPackage.NoDrinksPackage;
+import CruisePackage.WifiPackage.NoWifi;
 import CruisePort.PortManager;
+import CruiseRoom.InsideCabinRoom;
 import CruiseShip.*;
 
 public class Main {
@@ -17,10 +22,12 @@ public class Main {
         System.out.println(dPort.getLocationName());*/
 
         CruiseManager manager = new CruiseManager();
-        PortManager startingPort = manager.createCruisePort();
-        PortManager endingPort = manager.createCruisePort("AK", "Haines");
+        /*PortManager startingPort = manager.createCruisePort();
+        PortManager endingPort = manager.createCruisePort("AK", "Haines");*/
 
-        CruiseShip ship = manager.createCruiseShip();
+        AbstractCruiseBuilder cruise1 = manager.buildCruise("AK", "Haines", "Carnival", "Carnival Magic", "Family Friendly", new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+        manager.displayCruiseSystemDetails();
+
 
         //CruisePortManager depPort = new CruisePort();
 

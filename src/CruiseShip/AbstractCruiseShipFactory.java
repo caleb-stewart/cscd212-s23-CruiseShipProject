@@ -12,18 +12,23 @@ public abstract class AbstractCruiseShipFactory {
     private final String parentCompany;
     private final String shipName;
 
-    File ships = new File("ships.txt");
-    Scanner scnr;
-    Scanner kb = new Scanner(System.in);
-    ArrayList<String> shipCompanyNames = new ArrayList<>();
-    ArrayList<String> companyShipNames = new ArrayList<>();
+    private File ships = new File("ships.txt");
+    private Scanner scnr;
+    private Scanner kb = new Scanner(System.in);
+    private ArrayList<String> shipCompanyNames = new ArrayList<>();
+    private ArrayList<String> companyShipNames = new ArrayList<>();
 
-    public AbstractCruiseShipFactory(/*final String parentCompany, final String shipName*/) {
+    public AbstractCruiseShipFactory() {
 
         fillArrayLists();
 
         this.parentCompany = availableShipCompanyNames();
         this.shipName = availableShipNames(this.parentCompany);
+    }
+
+    public AbstractCruiseShipFactory(final String parentCompany, final String shipName) {
+        this.parentCompany = parentCompany;
+        this.shipName = shipName;
     }
 
     public abstract CruiseShip createShip(String shipType);
