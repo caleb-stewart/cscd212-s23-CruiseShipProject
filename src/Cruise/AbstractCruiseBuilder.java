@@ -7,6 +7,7 @@ import CruisePort.PortManager;
 import CruiseShip.CruiseShip;
 import CruiseRoom.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public abstract class AbstractCruiseBuilder {
         public DrinksPackage drinksPackage;
         public WifiPackage wifiPackage;
         public CruiseRoom room;
-        public Date date;
+        public String date;
 
         public int numDaysSailing;
         public int numDaysInDestinationPort;
@@ -37,7 +38,9 @@ public abstract class AbstractCruiseBuilder {
 
             this.room = new InsideCabinRoom();
 
-            this.date = new Date();
+            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+            this.date = format.format(date);
             this.numDaysSailing = calculateNumDaysSailing();
             this.numDaysInDestinationPort = this.ports.size();
 
@@ -88,7 +91,7 @@ public abstract class AbstractCruiseBuilder {
             return room;
         }
 
-        public Date getDate() {
+        public String getDate() {
             return date;
         }
 

@@ -28,11 +28,12 @@ public class Main {
         AbstractCruiseBuilder cruise1 = manager.buildCruise("AK", "Haines", "BR", "Belem", "Carnival", "Carnival Magic", "Family Friendly", new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
 
         System.out.println(manager.displayCruiseSystemDetails());
-        manager.addPortToCruise();
+        manager.addPortToCruise("WA", "Spokane", 0);
         System.out.println(manager.displayCruiseSystemDetails());
 
-        AbstractCruiseBuilder cruise2 = manager.buildCruise();
-        System.out.println(manager.displayCruiseSystemDetails());
+        manager.menuOptions();
+        /*AbstractCruiseBuilder cruise2 = manager.buildCruise();
+        System.out.println(manager.displayCruiseSystemDetails());*/
 
 
         //CruisePortManager depPort = new CruisePort();

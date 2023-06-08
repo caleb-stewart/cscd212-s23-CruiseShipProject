@@ -12,7 +12,7 @@ import CruiseRoom.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CruiseManager {//Observer???
+public class CruiseManager {
 
     PortManager cruisePort = new CruisePort();
 
@@ -69,12 +69,14 @@ public class CruiseManager {//Observer???
                             cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName();
 
             if(cruiseList.get(i).getPorts().size() > 2) {
-                cruiseSystemDetails += "\n\tStops along the way: ";
-                int x = 1;
+                cruiseSystemDetails += "\n\tPorts: ";
+                int x = 0;
                 while(x < cruiseList.get(i).getPorts().size() - 1) {
-                    cruiseSystemDetails += cruiseList.get(i).getPorts().get(x).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(x).getLocationName() + " -> ";
+                    cruiseSystemDetails += cruiseList.get(i).getPorts().get(x).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(x).getLocationName() + " --> ";
                     ++x;
                 }
+                cruiseSystemDetails += cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() +
+                        ", " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName();
 
             }
             cruiseSystemDetails += "\n\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName();
@@ -84,6 +86,7 @@ public class CruiseManager {//Observer???
             cruiseSystemDetails += "\n\tDinner Package: " + cruiseList.get(i).getDinnerPackage().typeOfDinner();
             cruiseSystemDetails += "\n\tDrinks Package: " + cruiseList.get(i).getDrinksPackage().drinkBeverage();
             cruiseSystemDetails += "\n\tWifi Package: " + cruiseList.get(i).getWifiPackage().wifiStrength();
+            cruiseSystemDetails += "\n\tDeparture Date: " + cruiseList.get(i).getDate();
             cruiseSystemDetails += "\n\tNights: " + cruiseList.get(i).getNumDaysSailing();
             cruiseSystemDetails += "\n\tDays in destination port: " + cruiseList.get(i).getNumDaysInDestinationPort() + "\n";
 
@@ -137,22 +140,30 @@ public class CruiseManager {//Observer???
         return cruise;
     }
 
-    public void changeAccommodationForCruise(final DinnerPackage dinnerPackage, final DrinksPackage drinksPackage, final WifiPackage wifiPackage) {
-        if(dinnerPackage == null || drinksPackage == null || wifiPackage == null) {
-            throw new IllegalArgumentException("Bad Params in CruiseManager changeAccommodationForCruise");
-        }
+    public void changeAccommodationForCruise() {
 
-        System.out.println("What cruise would you like to change the accommodation for?");
+        int cruiseChoice = chooseCruiseFromList();
 
-        /*for(int i = 0; i < cruiseList.size(); i++) {
-            System.out.println(i + ".) " + cruiseList.get(i).getStartingPort().getLocationName() + " to " + cruiseList.get(i).getEndingPort().getLocationName());
-        }*/
+        cruiseList.get(cruiseChoice).setDinnerPackageAccommodation();
+        cruiseList.get(cruiseChoice).setDrinksPackageAccommodation();
+        cruiseList.get(cruiseChoice).setWifiPackageAccommodation();
+
+
     }
 
     public void addPortToCruise () throws CloneNotSupportedException {
         int cruiseChoice = chooseCruiseFromList();
 
         cruiseList.get(cruiseChoice).addPort(createCruisePort());
+    }
+
+    public void addPortToCruise(final String countryPort, final String locationName, final int cruiseChoice) throws CloneNotSupportedException {
+
+        if(countryPort == null || countryPort.isEmpty() || locationName == null || locationName.isEmpty()) {
+            throw new IllegalArgumentException("Bad Params in CruiseManager addPortToCruise");
+        }
+
+        cruiseList.get(cruiseChoice).addPort(createCruisePort(countryPort, locationName));
     }
 
     public int chooseCruiseFromList() {
@@ -168,5 +179,50 @@ public class CruiseManager {//Observer???
         int cruiseChoice = Integer.parseInt(kb.nextLine());
 
         return cruiseChoice - 1;
+    }
+
+    public void menuOptions() {
+
+        Scanner kb = new Scanner(System.in);
+        int choice = 0;
+
+        do {
+            System.out.println("1.) Create a new cruise");
+            System.out.println("2.) Add a port to a cruise");
+            System.out.println("3.) Change the accommodation for a cruise");
+            System.out.println("4.) Display all cruises");
+            System.out.println("5.) Exit");
+            System.out.println("Please choose an option: ");
+            choice = Integer.parseInt(kb.nextLine());
+
+            switch(choice) {
+                case 1:
+                    try {
+                        buildCruise();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    try {
+                        addPortToCruise();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 3:
+                    changeAccommodationForCruise();
+                    break;
+                case 4:
+                    System.out.println(displayCruiseSystemDetails());
+                    break;
+                case 5:
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+        } while(choice != 5);
     }
 }
