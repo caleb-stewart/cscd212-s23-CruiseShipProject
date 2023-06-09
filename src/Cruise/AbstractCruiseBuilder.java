@@ -99,6 +99,10 @@ public abstract class AbstractCruiseBuilder {
             return numDaysSailing;
         }
 
+        public void setNumDaysSailing(final int numDaysSailing) {
+            this.numDaysSailing = numDaysSailing;
+        }
+
         public int getNumDaysInDestinationPort() {
             return numDaysInDestinationPort;
         }

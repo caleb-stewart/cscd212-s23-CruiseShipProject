@@ -9,17 +9,21 @@ import CruisePort.*;
 import CruiseShip.*;
 import CruiseRoom.*;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CruiseManager {
 
-    PortManager cruisePort = new CruisePort();
-
+    private PortManager cruisePort = new CruisePort();
     protected ArrayList<AbstractCruiseBuilder> cruiseList;
+    private PropertyChangeSupport pcs;
 
     public CruiseManager() {
+
         cruiseList = new ArrayList<AbstractCruiseBuilder>();
+        this.pcs = new PropertyChangeSupport(this);
     }
 
     public PortManager createCruisePort() throws CloneNotSupportedException{
@@ -89,6 +93,7 @@ public class CruiseManager {
             cruiseSystemDetails += "\n\tDeparture Date: " + cruiseList.get(i).getDate();
             cruiseSystemDetails += "\n\tNights: " + cruiseList.get(i).getNumDaysSailing();
             cruiseSystemDetails += "\n\tDays in destination port: " + cruiseList.get(i).getNumDaysInDestinationPort() + "\n";
+            cruiseSystemDetails += "-----------------------------------------------------\n";
 
 
         }
@@ -103,6 +108,8 @@ public class CruiseManager {
         CruiseShip ship = createCruiseShip();
 
         AbstractCruiseBuilder cruise = new CruiseBuilder(startingPort, endingPort, ship);
+
+        cruise.setRoom();
 
         cruise.setDinnerPackageAccommodation();
         cruise.setDrinksPackageAccommodation();
@@ -148,6 +155,7 @@ public class CruiseManager {
         cruiseList.get(cruiseChoice).setDrinksPackageAccommodation();
         cruiseList.get(cruiseChoice).setWifiPackageAccommodation();
 
+        cruiseList.get(cruiseChoice).setRoom();
 
     }
 
@@ -155,6 +163,7 @@ public class CruiseManager {
         int cruiseChoice = chooseCruiseFromList();
 
         cruiseList.get(cruiseChoice).addPort(createCruisePort());
+        cruiseList.get(cruiseChoice).setNumDaysSailing(cruiseList.get(cruiseChoice).getNumDaysSailing() + 5);
     }
 
     public void addPortToCruise(final String countryPort, final String locationName, final int cruiseChoice) throws CloneNotSupportedException {
@@ -164,6 +173,7 @@ public class CruiseManager {
         }
 
         cruiseList.get(cruiseChoice).addPort(createCruisePort(countryPort, locationName));
+        cruiseList.get(cruiseChoice).setNumDaysSailing(cruiseList.get(cruiseChoice).getNumDaysSailing() + 5);
     }
 
     public int chooseCruiseFromList() {
@@ -187,6 +197,7 @@ public class CruiseManager {
         int choice = 0;
 
         do {
+            ArrayList<AbstractCruiseBuilder> newCruiseList = this.cruiseList;
             System.out.println("1.) Create a new cruise");
             System.out.println("2.) Add a port to a cruise");
             System.out.println("3.) Change the accommodation for a cruise");
@@ -223,6 +234,22 @@ public class CruiseManager {
                     System.out.println("Invalid choice");
                     break;
             }
+            updateObserver(newCruiseList);
         } while(choice != 5);
+    }
+
+    public void addPropertyChangeListener(final PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(final PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
+    }
+
+    public void updateObserver(final ArrayList<AbstractCruiseBuilder> oldCruiseList) {
+        for(int i = 0; i < cruiseList.size(); i++) {
+            this.pcs.firePropertyChange("CruiseList", oldCruiseList, cruiseList);
+        }
+
     }
 }
