@@ -12,6 +12,7 @@ import CruiseRoom.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CruiseManager {
@@ -196,13 +197,18 @@ public class CruiseManager {
         Scanner kb = new Scanner(System.in);
         int choice = 0;
 
+
         do {
-            ArrayList<AbstractCruiseBuilder> newCruiseList = this.cruiseList;
+            ArrayList<Integer> cruiseListNumDaysSailing = new ArrayList<>();
+            for(int i = 0; i < this.cruiseList.size(); ++i) {
+                cruiseListNumDaysSailing.add(this.cruiseList.get(i).getNumDaysSailing());
+            }
             System.out.println("1.) Create a new cruise");
             System.out.println("2.) Add a port to a cruise");
             System.out.println("3.) Change the accommodation for a cruise");
             System.out.println("4.) Display all cruises");
             System.out.println("5.) Exit");
+            System.out.println("6.) Increase nights cruising by 2 (observer)");
             System.out.println("Please choose an option: ");
             choice = Integer.parseInt(kb.nextLine());
 
@@ -230,11 +236,14 @@ public class CruiseManager {
                 case 5:
                     System.out.println("Goodbye!");
                     break;
+                case 6:
+                    increaseNightsCruising();
+                    updateObserver(cruiseListNumDaysSailing);
+                    break;
                 default:
                     System.out.println("Invalid choice");
                     break;
             }
-            updateObserver(newCruiseList);
         } while(choice != 5);
     }
 
@@ -246,10 +255,18 @@ public class CruiseManager {
         this.pcs.removePropertyChangeListener(listener);
     }
 
-    public void updateObserver(final ArrayList<AbstractCruiseBuilder> oldCruiseList) {
+    public void updateObserver(final ArrayList<Integer> oldCruiseList) {
         for(int i = 0; i < cruiseList.size(); i++) {
-            this.pcs.firePropertyChange("CruiseList", oldCruiseList, cruiseList);
+            this.pcs.firePropertyChange("Nights cruising from " + cruiseList.get(i).getPorts().get(0).getCountryPort() + ", " + cruiseList.get(i).getPorts().get(0).getLocationName()
+                    + " to " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getCountryPort() + ", " +
+                    cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName() + " has increased",
+                    (int) oldCruiseList.get(i), cruiseList.get(i).getNumDaysSailing());
         }
+            }
 
+    public void increaseNightsCruising() {
+        for(int i = 0; i < cruiseList.size(); ++i) {
+            cruiseList.get(i).setNumDaysSailing(cruiseList.get(i).getNumDaysSailing() + 2);
+        }
     }
 }

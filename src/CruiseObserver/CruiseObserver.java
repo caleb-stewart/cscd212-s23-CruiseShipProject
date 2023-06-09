@@ -14,8 +14,8 @@ public class CruiseObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
-        System.out.println("CruiseObserver - Changed property: " + evt.getPropertyName() + " [old -> "
-                + evt.getOldValue() + "] | [new -> " + evt.getNewValue() +"]");
+        System.out.println("CruiseObserver - Changed property: " + evt.getPropertyName() + " [old nights: "
+                + evt.getOldValue() + "] | [new nights: " + evt.getNewValue() +"]\n");
     }
 
     public void add(final CruiseManager manager) {
