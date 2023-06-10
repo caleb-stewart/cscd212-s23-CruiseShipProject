@@ -99,7 +99,7 @@ public abstract class PortManager implements Cloneable{
 
         }
 
-        System.out.println("\nSelect a Country You Would Like to Depart From: ");
+        System.out.println("\nSelect a Country: ");
         String choice = kb.nextLine();
 
         if(countryPorts.contains(choice.toUpperCase())) {

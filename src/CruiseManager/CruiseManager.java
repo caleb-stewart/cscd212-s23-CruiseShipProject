@@ -167,7 +167,7 @@ public class CruiseManager {
         cruiseList.get(cruiseChoice).setNumDaysSailing(cruiseList.get(cruiseChoice).getNumDaysSailing() + 5);
     }
 
-    public void addPortToCruise(final String countryPort, final String locationName, final int cruiseChoice) throws CloneNotSupportedException {
+    public void addPortToCruise(final String countryPort, final String locationName, final int cruiseChoice) {
 
         if(countryPort == null || countryPort.isEmpty() || locationName == null || locationName.isEmpty()) {
             throw new IllegalArgumentException("Bad Params in CruiseManager addPortToCruise");

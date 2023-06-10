@@ -1,10 +1,6 @@
 package Cruise;
 
-import CruisePackage.DinnerPackage.DinnerPackage;
-import CruisePackage.DrinksPackage.DrinksPackage;
-import CruisePackage.WifiPackage.WifiPackage;
 import CruisePort.PortManager;
-import CruiseRoom.CabinWithBalcony;
 import CruiseShip.CruiseShip;
 import CruisePackage.DinnerPackage.*;
 import CruisePackage.DrinksPackage.*;
