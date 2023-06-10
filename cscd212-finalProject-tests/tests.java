@@ -1,17 +1,16 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import Cruise.*;
 import CruisePort.*;
 import CruiseRoom.*;
 import CruiseShip.*;
+import CruiseManager.*;
 import CruisePackage.DinnerPackage.*;
 import CruisePackage.DrinksPackage.*;
 import CruisePackage.WifiPackage.*;
 import org.junit.jupiter.api.*;
 
-import java.io.*;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class tests {
 
@@ -248,5 +247,142 @@ public class tests {
             wifi = new UnlimitedWifi();
             assertEquals("Strong Wifi", wifi.wifiStrength());
         }
+    }
+
+    @Nested
+    public class testCruiseBuilder {
+
+        AbstractCruiseBuilder builder;
+        @BeforeEach
+        public void setUp() {
+            PortManager startingPort = new CruisePort("Starting Country", "Starting Location");
+            PortManager endingPort = new CruisePort("Ending Country", "Ending Location");
+
+            CruiseShip ship = new FamilyFriendlyCruiseShip("Company 1", "Cool Cruise");
+            builder = new CruiseBuilder(startingPort, endingPort, ship);
+        }
+
+        @Test
+        public void testCruiseBuilderDinnerPackage() {
+            assertTrue(builder.dinnerPackage instanceof FreeDinner);
+        }
+
+        @Test
+        public void testCruiseBuilderDrinksPackage() {
+            assertTrue(builder.drinksPackage instanceof NoDrinksPackage);
+        }
+
+        @Test
+        public void testCruiseBuilderWifiPackage() {
+            assertTrue(builder.wifiPackage instanceof NoWifi);
+        }
+
+        @Test
+        public void testCruiseBuilderRoom() {
+            assertTrue(builder.room instanceof InsideCabinRoom);
+        }
+
+        @Test
+        public void testCruiseBuilderCalculateNumDaysSailing() {
+            assertEquals(10, builder.numDaysSailing);
+        }
+
+        @Test
+        public void testCruiseBuilderAddPortGetSize() {
+            PortManager port = new CruisePort("Country", "Location");
+            builder.addPort(port);
+            assertEquals(3, builder.getPorts().size());
+        }
+
+        @Test
+        public void testCruiseBuilderAddPortLocationInArray() {
+            PortManager port = new CruisePort("Country", "Location");
+            builder.addPort(port);
+            assertEquals("Location", builder.getPorts().get(1).getLocationName());
+        }
+    }
+
+    @Nested
+    public class testCruiseManager {
+
+        CruiseManager manager;
+
+        @BeforeEach
+        public void setUp() {
+            manager = new CruiseManager();
+        }
+
+        @Test
+        public void testCreateCruisePort() {
+            PortManager port = manager.createCruisePort("Country", "Location");
+
+            assertEquals("Location", port.getLocationName());
+        }
+
+        @Test
+        public void testCreateCruisePortExceptionThrow() {
+            assertThrows(IllegalArgumentException.class, ()-> manager.createCruisePort("", ""));
+        }
+
+        @Test
+        public void testCreateCruiseShipFamilyFriendly() {
+            CruiseShip ship = manager.createCruiseShip("Company 1", "Cool Cruise", "Family Friendly");
+
+            assertTrue(ship instanceof FamilyFriendlyCruiseShip);
+        }
+
+        @Test
+        public void testCreateCruiseShip() {
+            CruiseShip ship = manager.createCruiseShip("Company 1", "Cool Cruise", "Family Friendly");
+
+            assertEquals("Company 1", ship.getShipCompany());
+        }
+
+        @Test
+        public void testCreateCruiseShipExceptionThrow() {
+            assertThrows(IllegalArgumentException.class, ()-> manager.createCruiseShip("", "", ""));
+        }
+
+        @Test
+        public void testCruiseManagerBuildCruise() {
+            AbstractCruiseBuilder cruise = manager.buildCruise("Starting Country", "Starting Location", "Ending Country", "Ending Location", "Company 1", "Cool Cruise", "Family Friendly",
+                    new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+
+            assertTrue(cruise instanceof CruiseBuilder);
+        }
+
+        @Test
+        public void testCruiseManagerBuildCruiseExceptionThrow() {
+            assertThrows(IllegalArgumentException.class, ()-> manager.buildCruise("", "", "", "", "", "", "", null, null, null, null));
+        }
+
+        @Test
+        public void testCruiseManagerIncreaseNightsCruising() {
+            AbstractCruiseBuilder cruise = manager.buildCruise("Starting Country", "Starting Location", "Ending Country", "Ending Location", "Company 1", "Cool Cruise", "Family Friendly",
+                    new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+
+            manager.increaseNightsCruising();
+
+            assertEquals(12, cruise.numDaysSailing);
+        }
+
+        @Test
+        public void testCruiseManagerAddPortToCruise() {
+            AbstractCruiseBuilder cruise = manager.buildCruise("Starting Country", "Starting Location", "Ending Country", "Ending Location", "Company 1", "Cool Cruise", "Family Friendly",
+                    new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+
+            manager.addPortToCruise("New Country", "New Location", 0);
+
+            assertEquals(3, cruise.getPorts().size());
+        }
+
+        @Test
+        public void testCruiseManagerAddPortToCruiseException() {
+            AbstractCruiseBuilder cruise = manager.buildCruise("Starting Country", "Starting Location", "Ending Country", "Ending Location", "Company 1", "Cool Cruise", "Family Friendly",
+                    new FreeDinner(), new NoDrinksPackage(), new NoWifi(), new InsideCabinRoom());
+
+            assertThrows(IllegalArgumentException.class, ()-> manager.addPortToCruise("", "", 0));
+        }
+
     }
 }

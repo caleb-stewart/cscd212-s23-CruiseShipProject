@@ -12,7 +12,6 @@ import CruiseRoom.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class CruiseManager {
@@ -40,6 +39,10 @@ public class CruiseManager {
     }
 
     public PortManager createCruisePort(final String countryName, final String locationName) {
+
+        if(countryName == null || countryName.isEmpty() || locationName == null || locationName.isEmpty()) {
+            throw new IllegalArgumentException("Bad params in CruiseManager createCruisePort");
+        }
 
         if(cruisePort.getLocationNameList().contains(countryName + ", " + locationName)) {
             cruisePort.getLocationNameList().remove(countryName + ", " + locationName);
