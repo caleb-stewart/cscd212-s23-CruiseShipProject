@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class CruiseManager {
 
     private PortManager cruisePort = new CruisePort();
+    private AbstractCruiseShipFactory shipFactory = new CruiseShipFactory();
     protected ArrayList<AbstractCruiseBuilder> cruiseList;
     private PropertyChangeSupport pcs;
 
@@ -53,7 +54,9 @@ public class CruiseManager {
 
     public CruiseShip createCruiseShip() {
 
-        AbstractCruiseShipFactory shipFac = new CruiseShipFactory();
+        AbstractCruiseShipFactory shipFac = shipFactory.clone();
+        shipFac.chooseCruise();
+
         return shipFac.chooseTypeOfShip();
 
     }
@@ -87,7 +90,7 @@ public class CruiseManager {
                         ", " + cruiseList.get(i).getPorts().get(cruiseList.get(i).getPorts().size() - 1).getLocationName();
 
             }
-            cruiseSystemDetails += "\n\tShip: " + cruiseList.get(i).getShip().getShipCompany() + ": " + cruiseList.get(i).getShip().getShipName();
+            cruiseSystemDetails += "\n\tShip: " + cruiseList.get(i).getShip().getShipName();
             cruiseSystemDetails += "\n\tCruise Type: ";
             cruiseSystemDetails += cruiseList.get(i).getShip().displayCruiseType();
             cruiseSystemDetails += "\n\tRoom: " + cruiseList.get(i).getRoom().getRoom();

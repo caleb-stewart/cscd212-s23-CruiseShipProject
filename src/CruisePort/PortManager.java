@@ -132,7 +132,7 @@ public abstract class PortManager implements Cloneable{
         System.out.println("Select the port name in " + country);
         int locationChoice = Integer.parseInt(kb.nextLine()) - 1;
 
-        if(locationChoice >= 0 && locationChoice <= iter) {
+        if(locationChoice >= 0 && locationChoice < iter) {
             String returnPortLocationName = "";
 
             for(int i = 0; i < locationName.size(); ++i) {
