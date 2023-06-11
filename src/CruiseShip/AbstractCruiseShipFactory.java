@@ -15,12 +15,10 @@ public abstract class AbstractCruiseShipFactory implements Cloneable{
     private File ships = new File("ships.txt");
     private Scanner scnr;
     protected Scanner kb = new Scanner(System.in);
-    /*private ArrayList<String> shipCompanyNames = new ArrayList<>();*/
     private ArrayList<String> companyShipNames = new ArrayList<>();
     private ArrayList<String> namesOfShips = new ArrayList<>();
 
     public AbstractCruiseShipFactory() {
-        /*fillArrayLists();*/
         fillNamesOfShips();
     }
 
@@ -90,18 +88,6 @@ public abstract class AbstractCruiseShipFactory implements Cloneable{
 
     private String availableShipNames(final String company) {
 
-        /*resetFile();
-
-        while(scnr.hasNext()) {
-            String tempCursor = scnr.nextLine();
-            if(tempCursor.contains(company)) {
-                String[] temp = tempCursor.split(", ");
-
-                companyShipNames.addAll(Arrays.asList(temp).subList(1, temp.length));
-
-            }
-        }*/
-
         int iter = 1;
         for(int i = 0; i < namesOfShips.size(); ++i) {
             if(namesOfShips.get(i).contains(company)) {
@@ -130,18 +116,6 @@ public abstract class AbstractCruiseShipFactory implements Cloneable{
 
     }
 
-    /*public void fillArrayLists() {
-        resetFile();
-
-        while(scnr.hasNext()) {
-            String tempCursor = scnr.nextLine();
-            shipCompanyNames.add(tempCursor.substring(0, tempCursor.indexOf(", ")));
-
-        }
-
-
-    }*/
-
     @Override
     public AbstractCruiseShipFactory clone() {
         try {
@@ -151,12 +125,5 @@ public abstract class AbstractCruiseShipFactory implements Cloneable{
         }
     }
 
-    public void setCompanyShipNames(ArrayList<String> companyShipNames) {
-        this.companyShipNames = companyShipNames;
-    }
-
-    public ArrayList<String> getCompanyShipNames() {
-        return companyShipNames;
-    }
 
 }

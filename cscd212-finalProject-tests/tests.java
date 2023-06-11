@@ -21,7 +21,6 @@ public class tests {
 
         @BeforeEach
         public void setUp() {
-            // Initialize PortManager instance with required setup
             portManager = new CruisePort();
             ArrayList<String> locationName = new ArrayList<>();
             locationName.add("USA, New York");
@@ -40,40 +39,31 @@ public class tests {
 
         @Test
         public void testSetCountryPort() {
-            // Set the country port using the method to be tested
-            String countryPort = "USA";
-            portManager.setCountryPort(countryPort);
+            portManager.setCountryPort("USA");
 
-            // Verify the expected results
-            assertEquals(countryPort, portManager.getCountryPort(), "Country port mismatch");
+            assertEquals("USA", portManager.getCountryPort(), "Country port mismatch");
         }
 
         @Test
         public void testSetLocationName() {
-            // Set the port location using the method to be tested
             String locationName = "USA, New York";
             portManager.setLocationName(locationName);
 
-            // Verify the expected results
             assertEquals(locationName, portManager.getLocationName(), "Port location mismatch");
         }
 
-        // Write similar test methods for other methods in the PortManager class
         @Test
         public void testGetLocationNameList() {
-            // Get the location name list using the method to be tested
             ArrayList<String> expectedLocationNameList = new ArrayList<>();
             expectedLocationNameList.add("USA, New York");
             expectedLocationNameList.add("USA, Los Angeles");
             expectedLocationNameList.add("Canada, Vancouver");
 
-            // Verify the expected results
             assertEquals(expectedLocationNameList, portManager.getLocationNameList(), "Location name list mismatch");
         }
 
         @Test
         public void testClone1() throws CloneNotSupportedException {
-            // Clone the PortManager instance using the method to be tested
             PortManager clonedPortManager = portManager.clone();
 
             assertNotSame(portManager, clonedPortManager, "Cloned instance is the same as original instance");
