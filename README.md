@@ -1,4 +1,4 @@
-[Project Requirements Here](cscd212-s23-CruiseShipProject)
+[Project Requirements Here](cscd212_s23_finalProject.pdf)
 
 Caleb Stewarts Design Pattern Implementations for CSCD212-s23-finalProject
 
